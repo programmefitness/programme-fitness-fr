@@ -949,6 +949,12 @@ async function addEmail() {
   if (!error) {
     input.value = '';
     loadAdminData();
+    // Envoyer e-mail de bienvenue
+    fetch('https://programme-fitness-webhook.vercel.app/api/send-welcome', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    }).catch(() => {});
   } else {
     alert(error.code === '23505' ? 'E-mail déjà inscrit.' : 'Erreur: ' + error.message);
   }
